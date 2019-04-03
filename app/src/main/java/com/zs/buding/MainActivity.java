@@ -3,6 +3,7 @@ package com.zs.buding;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.zs.buding.view.EyeView;
 
@@ -17,22 +18,18 @@ public class MainActivity extends AppCompatActivity {
 
         mainEyeView = findViewById(R.id.main_eye_view);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mainEyeView.startBlinkAnim();
-            }
-        },1000);
+    }
 
+    public void blink(View view) {
+        if (!mainEyeView.isStartBlinkAnim()) {
+            mainEyeView.startBlinkAnim();
+        } else {
+            mainEyeView.stopBlinkAnim();
+        }
+    }
 
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                mainEyeView.stopBlinkAnim();
-            }
-        },5000);
-
+    public void square(View  view){
+        mainEyeView.square();
     }
 
 }

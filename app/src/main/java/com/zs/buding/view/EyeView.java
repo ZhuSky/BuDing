@@ -12,9 +12,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
@@ -77,9 +75,10 @@ public class EyeView extends View {
      */
     private int blinkTime = 200;
     /**
-     * 是否启动眨眼动画 true 启动
+     * 是否启动了眨眼动画 true 启动
      */
-    private boolean isStartBlinkAnim = true;
+    private boolean isStartBlinkAnim = false;
+
     private ValueAnimator blinkSmallAnimator, blinkBigAnimator;
 
     public EyeView(Context context) {
@@ -165,11 +164,17 @@ public class EyeView extends View {
     }
 
     public void startBlinkAnim() {
+        isStartBlinkAnim = true;
         handler.sendEmptyMessage(2);
     }
 
     public void stopBlinkAnim() {
-        handler.sendEmptyMessage(3);
+        isStartBlinkAnim = false;
+        handler.removeMessages(2);
+    }
+
+    public boolean isStartBlinkAnim() {
+        return isStartBlinkAnim;
     }
 
     /**
@@ -197,7 +202,9 @@ public class EyeView extends View {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    handler.sendEmptyMessageDelayed(2, 2000);
+                    if (isStartBlinkAnim) {
+                        handler.sendEmptyMessageDelayed(2, 2000);
+                    }
                 }
             });
         }
@@ -312,7 +319,7 @@ public class EyeView extends View {
             if (msg.what == 1) {
                 //眼睛变方
                 if (squareSize > 20) {
-                    handler.sendEmptyMessageDelayed(1, 100);
+                    handler.sendEmptyMessageDelayed(1, 50);
                 }
                 squareSize -= 2;
                 postInvalidate();

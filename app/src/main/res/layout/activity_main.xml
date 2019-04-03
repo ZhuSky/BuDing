@@ -12,7 +12,30 @@
     <com.zs.buding.view.EyeView
         android:id="@+id/main_eye_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="blink"
+                android:text="眨眼" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="square"
+                android:text="方形" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </LinearLayout>
